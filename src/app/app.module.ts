@@ -12,7 +12,9 @@ import { CounterComponent } from './components/counter/counter.component';
 import { StoreModule } from '@ngrx/store'
 import { reducers } from './components/reducers';
 import { StoreDevtools, StoreDevtoolsModule } from '@ngrx/store-devtools';
-
+import { CounterCountByComponent } from './components/counter-count-by/counter-count-by.component';;
+import { EffectsModule } from '@ngrx/effects';
+import { counterEffects } from './effects/counter-effects';
 
 @NgModule({
   declarations: [
@@ -22,13 +24,15 @@ import { StoreDevtools, StoreDevtoolsModule } from '@ngrx/store-devtools';
     DashboardComponent,
     SongEntryComponent,
     SongListComponent,
-    CounterComponent
+    CounterComponent,
+    CounterCountByComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers),
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([counterEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
