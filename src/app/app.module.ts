@@ -15,6 +15,7 @@ import { StoreDevtools, StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CounterCountByComponent } from './components/counter-count-by/counter-count-by.component';;
 import { EffectsModule } from '@ngrx/effects';
 import { counterEffects } from './effects/counter-effects';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { counterEffects } from './effects/counter-effects';
     AppRoutingModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
-    EffectsModule.forRoot([counterEffects])
+    EffectsModule.forRoot([counterEffects]),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

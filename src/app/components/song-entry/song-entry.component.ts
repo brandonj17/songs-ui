@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { songAdded } from 'src/app/actions/song.actions';
+import { AppState } from '../reducers';
+
 
 @Component({
   selector: 'app-song-entry',
@@ -7,9 +12,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SongEntryComponent implements OnInit {
 
-  constructor() { }
+  formGroup: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private store: Store<AppState>) { }
 
   ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({
+      title: ['', [Validators.required]],
+      artist: ['', []],
+      recommendedBy: ['', [Validators.required]]
+    })
+  }
+
+  get title(): AbstractControl {
+    return this.formGroup.get('title');
+  }
+
+  submit(focusThis: HTMLElement): void {
+    if (this.formGroup.valid) {
+      this.store.dispatch(songAdded(this.formGroup.value));
+      this.formGroup.reset();
+      focusThis.focus();
+    } else {
+      console.log("Something bad on the form");
+    }
   }
 
 }
